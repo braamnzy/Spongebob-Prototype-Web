@@ -1,46 +1,57 @@
 <?php
-require_once 'core/auth.php';
+require_once __DIR__ . '/core/auth.php';
 
 if (isset($_SESSION['login'])) {
     header("Location: index.php");
     exit;
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+$error = '';
 
-    if (login($username, $password)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
+
+    if (empty($username) || empty($password)) {
+        $error = 'Username dan password wajib diisi!';
+    } elseif (login($username, $password)) {
         header("Location: index.php");
         exit;
     } else {
-        $error = "Username atau password salah, Bung!";
+        $error = 'Username atau password salah!';
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <title>Login - Bikini Bottom</title>
+    <meta charset="UTF-8">
+    <title>Login Pemweb</title>
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 <body>
-    <h2>Login</h2>
+    <div class="main-container" style="max-width: 500px; margin-top: 50px;">
+        <h2>Login Sistem</h2>
 
-    <?php if (isset($error)): ?>
-        <p style="color: red;"><?= $error ?></p>
-    <?php endif; ?>
+        <?php if ($error): ?>
+            <p class="alert-error"><?= htmlspecialchars($error) ?></p>
+        <?php endif; ?>
 
-    <form action="login.php" method="POST">
-        <label>Username:</label><br>
-        <input type="text" name="username" required><br><br>
-
-        <label>Password:</label><br>
-        <input type="password" name="password" required><br><br>
-
-        <button type="submit">Masuk</button>
-    </form>
-    <br>
-    <a href="register.php">Belum punya akun? Daftar di sini.</a>
+        <form action="login.php" method="POST">
+            <div>
+                <label>Username:</label><br>
+                <input type="text" name="username" required>
+            </div>
+            <div>
+                <label>Password:</label><br>
+                <input type="password" name="password" required>
+            </div>
+            <button type="submit">Masuk</button>
+        </form>
+        
+        <p style="margin-top:20px;">
+            <a href="register.php">Belum punya akun? Daftar di sini.</a>
+        </p>
+    </div>
 </body>
 </html>

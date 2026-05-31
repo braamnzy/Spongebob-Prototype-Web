@@ -1,50 +1,71 @@
 <?php
-require_once 'core/auth.php';
+require_once __DIR__ . '/core/auth.php';
 
 if (isset($_SESSION['login'])) {
     header("Location: index.php");
     exit;
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username        = bersihkanInput($_POST['username']);
-    $password        = $_POST['password'];
-    $role            = $_POST['role'];
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+$error = '';
+$success = '';
 
-    $query = "INSERT INTO users (username, password, role) VALUES ('$username', '$hashed_password', '$role')";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
+    $role     = $_POST['role'] ?? 'pelanggan';
 
-    if (mysqli_query($conn, $query)) {
-        echo "<script>alert('Registrasi berhasil! Silakan login.'); window.location='login.php';</script>";
+    if (empty($username) || empty($password)) {
+        $error = 'Semua field wajib diisi!';
     } else {
-        echo "<script>alert('Error: Gagal mendaftar.');</script>";
+        $result = register($username, $password, $role);
+        if ($result['success']) {
+            $success = $result['message'];
+        } else {
+            $error = $result['message'];
+        }
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <title>Register - Bikini Bottom</title>
+    <meta charset="UTF-8">
+    <title>Register Pemweb</title>
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 <body>
-    <h2>Register</h2>
-    <form action="register.php" method="POST">
-        <label>Username:</label><br>
-        <input type="text" name="username" required><br><br>
+    <div class="main-container" style="max-width: 500px; margin-top: 50px;">
+        <h2>Daftar Akun Baru</h2>
 
-        <label>Password:</label><br>
-        <input type="password" name="password" required><br><br>
+        <?php if ($error): ?>
+            <p class="alert-error"><?= htmlspecialchars($error) ?></p>
+        <?php endif; ?>
+        <?php if ($success): ?>
+            <p class="alert-success"><?= htmlspecialchars($success) ?></p>
+        <?php endif; ?>
 
-        <label>Pilih Role:</label><br>
-        <select name="role" required>
-            <option value="user">User (Warga Biasa)</option>
-            <option value="admin">Admin (Plankton / Mr. Krabs)</option>
-        </select><br><br>
+        <form action="register.php" method="POST">
+            <div>
+                <label>Username:</label><br>
+                <input type="text" name="username" required>
+            </div>
+            <div>
+                <label>Password:</label><br>
+                <input type="password" name="password" required>
+            </div>
+            <div>
+                <label>Daftar Sebagai:</label><br>
+                <select name="role">
+                    <option value="pelanggan">Pelanggan</option>
+                    <option value="karyawan">Karyawan</option>
+                </select>
+            </div>
+            <button type="submit">Daftar</button>
+        </form>
 
-        <button type="submit">Daftar Akun</button>
-    </form>
-    <br>
-    <a href="login.php">Sudah punya akun? Login di sini.</a>
+        <p style="margin-top:20px;">
+            <a href="login.php">Sudah punya akun? Kembali ke Login.</a>
+        </p>
+    </div>
 </body>
 </html>

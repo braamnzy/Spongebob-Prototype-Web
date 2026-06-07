@@ -10,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username        = bersihkanInput($_POST['username']);
     $password        = $_POST['password'];
     $role            = $_POST['role'];
+
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     $query = "INSERT INTO users (username, password, role) VALUES ('$username', '$hashed_password', '$role')";
@@ -38,8 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <label>Pilih Role:</label><br>
         <select name="role" required>
-            <option value="user">User (Warga Biasa)</option>
-            <option value="admin">Admin (Plankton / Mr. Krabs)</option>
+            <option value="pelanggan">Pelanggan</option>
+            <option value="karyawan">Karyawan (Krusty Krabs)</option>
         </select><br><br>
 
         <button type="submit">Daftar Akun</button>

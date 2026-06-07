@@ -13,8 +13,10 @@ function getAllData($tabel) {
     global $conn;
     $result = mysqli_query($conn, "SELECT * FROM $tabel");
     $rows   = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $rows[] = $row;
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
     }
     return $rows;
 }

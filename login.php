@@ -2,7 +2,8 @@
 require_once 'core/auth.php';
 
 if (isset($_SESSION['login'])) {
-    header("Location: index.php");
+    $redirect = ($_SESSION['role'] === 'karyawan' || $_SESSION['role'] === 'admin') ? 'dashboard_karyawan.php' : 'dashboard_pelanggan.php';
+    header("Location: $redirect");
     exit;
 }
 
@@ -11,7 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     if (login($username, $password)) {
-        header("Location: index.php");
+        $redirect = ($_SESSION['role'] === 'karyawan' || $_SESSION['role'] === 'admin') ? 'dashboard_karyawan.php' : 'dashboard_pelanggan.php';
+        header("Location: $redirect");
         exit;
     } else {
         $error = "Username atau password salah, Bung!";

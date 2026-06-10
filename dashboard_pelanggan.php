@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['pesan'])) {
 $menu_list  = getAllData('menu');
 $merch_list = getAllData('merchandise');
 
-$q_pesanan_saya   = "SELECT * FROM pesanan WHERE nama_pelanggan = '{$_SESSION['username']}' ORDER BY id DESC LIMIT 5";
+$q_pesanan_saya   = "SELECT * FROM pesanan WHERE nama_pelanggan = '{$_SESSION['username']}' AND status != 'disajikan' ORDER BY id DESC LIMIT 5";
 $res_pesanan_saya = mysqli_query($conn, $q_pesanan_saya);
 $pesanan_saya     = [];
 if ($res_pesanan_saya) {

@@ -1,0 +1,67 @@
+CREATE DATABASE IF NOT EXISTS spongebob_db;
+USE spongebob_db;
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` enum('pelanggan','karyawan','admin') NOT NULL DEFAULT 'pelanggan',
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) NOT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `harga` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `merchandise` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) NOT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `harga` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `pesanan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_pelanggan` varchar(50) NOT NULL,
+  `catatan` text DEFAULT NULL,
+  `total_harga` decimal(12,2) NOT NULL,
+  `status` enum('menunggu','dibuat','disajikan') NOT NULL DEFAULT 'menunggu',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `pesanan_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pesanan_id` int(11) NOT NULL,
+  `tipe` enum('menu','merchandise') NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `nama_item` varchar(100) NOT NULL,
+  `harga_satuan` decimal(10,2) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`pesanan_id`) REFERENCES `pesanan`(`id`) ON DELETE CASCADE
+);
+
+-- Dummy data menu
+INSERT INTO `menu` (`id`, `nama`, `deskripsi`, `harga`) VALUES
+(1, 'Krabby Patty Burger', 'Classic Krabby Patty', 25000),
+(2, 'Sub Sandwich', 'Delicious Krusty Sub', 20000),
+(3, 'Krusty Pizza', 'Pizza for you and me', 35000),
+(4, 'Spaghetti', 'Krusty Noodles', 22000),
+(5, 'Fish and Chips', 'Fried Fish with Potato', 28000),
+(6, 'Kelp Soup', 'Warm Kelp Soup', 15000),
+(7, 'Coral Steak', 'Juicy underwater steak', 50000),
+(8, 'Mac & Cheese', 'Cheesy Macaroni', 18000);
+
+-- Dummy data merchandise
+INSERT INTO `merchandise` (`id`, `nama`, `deskripsi`, `harga`) VALUES
+(1, 'Krusty T-Shirt (Yellow)', 'Standard uniform color tee', 75000),
+(2, 'Employee Shirt', 'Official Krusty Krab Shirt', 85000),
+(3, 'Employee Hat', 'Iconic Krusty Hat', 45000),
+(4, 'SpongeBob Keychain', 'Collectable Keychain', 15000),
+(5, 'Krusty Backpack', 'For carrying your Krabby Patties', 120000);

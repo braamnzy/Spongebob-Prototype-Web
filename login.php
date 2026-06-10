@@ -2,7 +2,7 @@
 require_once 'core/auth.php';
 
 if (isset($_SESSION['login'])) {
-    $redirect = ($_SESSION['role'] === 'karyawan' || $_SESSION['role'] === 'admin') ? 'dashboard_karyawan.php' : 'home.php';
+    $redirect = ($_SESSION['role'] === 'karyawan' || $_SESSION['role'] === 'admin') ? 'home_karyawan.php' : 'home.php';
     header("Location: $redirect");
     exit;
 }
@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     if (login($username, $password)) {
-        $redirect = ($_SESSION['role'] === 'karyawan' || $_SESSION['role'] === 'admin') ? 'dashboard_karyawan.php' : 'home.php';
+        $redirect = ($_SESSION['role'] === 'karyawan' || $_SESSION['role'] === 'admin') ? 'home_karyawan.php' : 'home.php';
         header("Location: $redirect");
         exit;
     } else {

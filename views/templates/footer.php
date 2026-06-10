@@ -3,7 +3,7 @@
 
     <footer>
         <nav class="footer-nav">
-            <a href="../dashboard_karyawan.php">Home</a>
+            <a href="../home_karyawan.php">Home</a>
             <a href="tabel1_crud.php">Menu</a>
             <a href="tabel2.php">Merchandise</a>
             <a href="../logout.php" onclick="return confirm('Yakin ingin keluar?')">Logout</a>

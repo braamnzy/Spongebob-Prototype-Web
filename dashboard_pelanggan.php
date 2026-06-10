@@ -113,7 +113,7 @@ if ($res_pesanan_saya) {
 <body class="dashboard-page">
 
     <nav class="navbar">
-        <a href="switch_role.php" title="Toggle Employee/Customer Role">
+        <a href="home.php" title="Home">
             <img src="public/img/kk_logo.png" alt="Logo" class="nav-logo">
         </a>
         <div class="nav-divider"></div>

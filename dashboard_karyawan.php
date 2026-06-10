@@ -35,7 +35,7 @@ if ($pesanan_result) {
 <body class="dashboard-page">
 
     <nav class="navbar">
-        <a href="switch_role.php" title="Toggle Employee/Customer Role">
+        <a href="home_karyawan.php" title="Home">
             <img src="public/img/kk_logo.png" alt="Logo" class="nav-logo">
         </a>
         <div class="nav-divider"></div>
@@ -107,7 +107,7 @@ if ($pesanan_result) {
 
     <footer>
         <nav class="footer-nav">
-            <a href="dashboard_karyawan.php">Home</a>
+            <a href="home_karyawan.php">Home</a>
             <a href="dashboard_karyawan.php">Orders</a>
             <a href="logout.php" onclick="return confirm('Yakin ingin keluar?')">Logout</a>
         </nav>

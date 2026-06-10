@@ -2,8 +2,8 @@
 require_once 'core/auth.php';
 cekLogin();
 
-if ($_SESSION['role'] === 'karyawan' || $_SESSION['role'] === 'admin') {
-    header("Location: home_karyawan.php");
+if ($_SESSION['role'] !== 'karyawan' && $_SESSION['role'] !== 'admin') {
+    header("Location: home.php");
     exit;
 }
 ?>
@@ -12,8 +12,8 @@ if ($_SESSION['role'] === 'karyawan' || $_SESSION['role'] === 'admin') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Krusty Krab - Home</title>
-    <meta name="description" content="Welcome to The Krusty Krab! Order the best Krabby Patty in Bikini Bottom.">
+    <title>The Krusty Krab - Employee Home</title>
+    <meta name="description" content="Welcome to The Krusty Krab! Employee Portal.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="public/css/style.css">
@@ -21,7 +21,7 @@ if ($_SESSION['role'] === 'karyawan' || $_SESSION['role'] === 'admin') {
 <body class="home-page">
 
     <nav class="navbar">
-        <a href="home.php" title="Home">
+        <a href="home_karyawan.php" title="Home">
             <img src="public/img/kk_logo.png" alt="Krusty Krab Logo" class="nav-logo">
         </a>
         <div class="nav-divider"></div>
@@ -29,15 +29,15 @@ if ($_SESSION['role'] === 'karyawan' || $_SESSION['role'] === 'admin') {
             <img src="public/img/logout 1.png" alt="Logout">
         </a>
         <div class="nav-divider"></div>
-        <a href="dashboard_pelanggan.php" class="nav-icon" title="Order">
-            <img src="public/img/checkout 1.png" alt="Order">
+        <a href="dashboard_karyawan.php" class="nav-icon" title="Workspace">
+            <img src="public/img/checkout 1.png" alt="Workspace">
         </a>
     </nav>
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Hi, <span><?= htmlspecialchars($_SESSION['username']) ?>.</span><br>Welcome to KrustyKrab!</h1>
-            <a href="dashboard_pelanggan.php" class="btn-order">Orders now &gt;&gt;</a>
+            <h1>Hi, <span><?= htmlspecialchars($_SESSION['username']) ?>.</span><br>Welcome to Employee Portal!</h1>
+            <a href="dashboard_karyawan.php" class="btn-order">Manage Workspace &gt;&gt;</a>
         </div>
         <div class="hero-right">
             <img src="public/img/kk_sign.png" alt="The Krusty Krab Sign">
@@ -46,8 +46,8 @@ if ($_SESSION['role'] === 'karyawan' || $_SESSION['role'] === 'admin') {
 
     <footer>
         <nav class="footer-nav">
-            <a href="home.php">Home</a>
-            <a href="dashboard_pelanggan.php">Orders</a>
+            <a href="home_karyawan.php">Home</a>
+            <a href="dashboard_karyawan.php">Orders</a>
             <a href="logout.php" onclick="return confirm('Yakin ingin keluar?')">Logout</a>
         </nav>
 

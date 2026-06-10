@@ -16,7 +16,7 @@ if ($_SESSION['role'] === 'karyawan' || $_SESSION['role'] === 'admin') {
     <meta name="description" content="Welcome to The Krusty Krab! Order the best Krabby Patty in Bikini Bottom.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="public/css/style.css?v=3">
 </head>
 <body class="home-page">
 

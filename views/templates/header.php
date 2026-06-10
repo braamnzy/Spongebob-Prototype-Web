@@ -11,7 +11,7 @@
 <body class="dashboard-page">
 
     <nav class="navbar">
-        <a href="../dashboard_karyawan.php" title="Dashboard">
+        <a href="../home.php" title="Home">
             <img src="../public/img/kk_logo.png" alt="Logo" class="nav-logo">
         </a>
         <div class="nav-divider"></div>
